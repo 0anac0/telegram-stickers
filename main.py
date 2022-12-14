@@ -16,10 +16,10 @@ def upsize(image):
     height = image.size[1]
     ratio = width/height
     if width > height:
-        new_size = (TELEGRAM_MAX_SIZE, TELEGRAM_MAX_SIZE/ratio)
+        new_size = (TELEGRAM_MAX_SIZE, int(TELEGRAM_MAX_SIZE/ratio))
     else:
-        new_size = (TELEGRAM_MAX_SIZE*ratio, TELEGRAM_MAX_SIZE)
-    image.resize(new_size)
+        new_size = (int(TELEGRAM_MAX_SIZE*ratio), TELEGRAM_MAX_SIZE)
+    return image.resize(new_size)
 
 
 def downsize(image):
@@ -35,7 +35,7 @@ def resize(name):
         downsize(image)
     else:
         print(f'Upsizing image')
-        upsize(image)
+        image = upsize(image)
     image.save(make_path([OUTPUT_PATH, name]), quality=20, optimize=True)
     print(f'Saved')
 
